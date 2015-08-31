@@ -5,7 +5,7 @@ var MongoClient = require('mongodb').MongoClient;
 var user1 = {
     name: 'modulus admin',
     age: 42,
-    roles: ['adminpetexx', 'moderator', 'user']
+    roles: ['adminpeteyy', 'moderator', 'user']
 };
 var user2 = {
     name: 'modulus user',
