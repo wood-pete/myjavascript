@@ -2,7 +2,22 @@
 // Retrieve the data back from MongoDB
 var MongoClient = require('mongodb').MongoClient;
 // Connect to the db
-MongoClient.connect("mongodb://localhost:27017/hellpete", function(err, db) {
+
+
+//Create a service to serve up the data
+var http = require('http');
+
+//var sendDocument = { myrecords : [] };
+var sendDocument = [];
+
+
+// Configure our HTTP server to respond with Hello World to all requests.
+var server = http.createServer(function (request, response) {
+  //  sendDocument.myrecords.push({ hello : "there"});
+  response.writeHead(200, {"Content-Type": "application/json"});
+
+ //Beginning of databases
+ MongoClient.connect("mongodb://localhost:27017/hellpete", function(err, db) {
     if (!err) {
         console.log("We are connected");
         var collection = db.collection('petescollection');
@@ -13,10 +28,12 @@ MongoClient.connect("mongodb://localhost:27017/hellpete", function(err, db) {
            if (doc != null) {
               console.log("From the DB");
                 //console.dir(doc);
-                for (var i = doc.length - 1; i >= 0; i--) {
-                        console.log("Record",i);
-                        console.log(doc[i].name);
-                    };    
+                sendDocument.push(doc);
+                //for (var i = doc.length - 1; i >= 0; i--) {
+                        //console.log("Record",i);
+                        //console.log(doc[i]);
+                        //sendDocument.myrecords.push(doc[i]);
+                 //   };    
 
 
                 db.close(); 
@@ -25,21 +42,26 @@ MongoClient.connect("mongodb://localhost:27017/hellpete", function(err, db) {
             }
         }
 
-   );
+   ); 
 
        
 
-}
+} 
      
 });
+//End of Database selection
 
-//Create a service to serve up the data
-var http = require('http');
 
-// Configure our HTTP server to respond with Hello World to all requests.
-var server = http.createServer(function (request, response) {
-  response.writeHead(200, {"Content-Type": "text/plain"});
-  response.end("Hello World\n");
+
+  //response.end("Hello World\n");
+  response.end(JSON.stringify(sendDocument));
+  console.log(JSON.stringify(sendDocument));
+
+
+
+
+
+
 });
 
 // Listen on port 8000, IP defaults to 127.0.0.1
