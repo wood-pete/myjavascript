@@ -18,8 +18,26 @@ var user3 = {
     roles: ['super-admin', 'admin', 'moderator', 'user']
 };
 
+var request = require("request");
+request.get("http://127.0.0.1:8000", function (err, res, body) {
+    if (!err) {
+        var resultsObj = JSON.parse(body);
+        //Just an example of how to access properties:
+        console.log(resultsObj);
+
+        
+        for (var i = resultsObj.length - 1; i >= 0; i--) {
+        	console.log(i,">>",resultsObj[i].name, resultsObj[i].age, resultsObj[i].roles);
+        };
+        console.log(resultsObj[0].name);
+    }
+});
+
+
+
 
 // Connect to the db
+/* 
 MongoClient.connect("mongodb://localhost:27017/hellpete", function(err, db) {
     if (!err) {
         console.log("We are connected");
@@ -37,4 +55,6 @@ MongoClient.connect("mongodb://localhost:27017/hellpete", function(err, db) {
 
     }
     console.log("AFter error");
+
 });
+*/

@@ -8,7 +8,6 @@ var MongoClient = require('mongodb').MongoClient;
 var http = require('http');
 
 //var sendDocument = { myrecords : [] };
-var sendDocument = [];
 
 
 // Configure our HTTP server to respond with Hello World to all requests.
@@ -19,16 +18,19 @@ var server = http.createServer(function (request, response) {
  //Beginning of databases
  MongoClient.connect("mongodb://localhost:27017/hellpete", function(err, db) {
     if (!err) {
-        console.log("We are connected");
+        //console.log("We are connected");
         var collection = db.collection('petescollection');
-
+        var sendDocument = [];
 
       collection.find().toArray(function(err2, doc) {
       
            if (doc != null) {
-              console.log("From the DB");
-                //console.dir(doc);
+              //console.log("From the DB");
+
                 sendDocument.push(doc);
+                response.end(JSON.stringify(doc));
+                //console.log(JSON.stringify(doc));
+                //console.dir(doc);
                 //for (var i = doc.length - 1; i >= 0; i--) {
                         //console.log("Record",i);
                         //console.log(doc[i]);
@@ -50,15 +52,6 @@ var server = http.createServer(function (request, response) {
      
 });
 //End of Database selection
-
-
-
-  //response.end("Hello World\n");
-  response.end(JSON.stringify(sendDocument));
-  console.log(JSON.stringify(sendDocument));
-
-
-
 
 
 
