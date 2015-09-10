@@ -1,0 +1,24 @@
+h1= title
+p Welcome to #{title}
+p thank you
+
+
+
+//-var classes = ['myred']
+div(class = 'myblue') 
+p Add your data items here:
+
+form(action='/',method='post')
+	div Framework name:
+		input(type='textbox', name='frameworkname')
+
+	div Framework description:
+		input(type='textbox', name='frameworkdescription')
+
+	div Framework latest version updated:
+		input(type='textbox', name='frameworkversion')
+
+	div Framework licence:
+		input(type='textbox', name='frameworklicence')
+
+	input(type='submit',value='Add',data-transition='fade', data-theme='c')  
